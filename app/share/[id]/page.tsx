@@ -2,6 +2,8 @@ import { getBrief } from "@/lib/supabase/queries";
 import { notFound } from "next/navigation";
 import SharedBriefClient from "./SharedBriefClient";
 
+export const dynamic = 'force-dynamic';
+
 export default async function SharedBriefPage({ params }: { params: Promise<{ id: string }> }) {
   const resolvedParams = await params;
   const brief = await getBrief(resolvedParams.id);

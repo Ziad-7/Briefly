@@ -1,6 +1,8 @@
 import { listBriefs } from "@/lib/supabase/queries";
 import Link from "next/link";
 
+export const dynamic = 'force-dynamic';
+
 export default async function Dashboard() {
   const briefs = await listBriefs();
 

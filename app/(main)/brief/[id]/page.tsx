@@ -2,6 +2,8 @@ import { getBrief } from "@/lib/supabase/queries";
 import { notFound } from "next/navigation";
 import BriefDetailClient from "./BriefDetailClient";
 
+export const dynamic = 'force-dynamic';
+
 export default async function GeneratedBriefPage({ params }: { params: Promise<{ id: string }> }) {
   const resolvedParams = await params;
   const brief = await getBrief(resolvedParams.id);
