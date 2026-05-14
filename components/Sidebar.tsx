@@ -7,7 +7,7 @@ export default function Sidebar() {
   const pathname = usePathname();
 
   const getLinkClasses = (path: string, exact: boolean = false) => {
-    const isActive = exact ? pathname === path : pathname.startsWith(path);
+    const isActive = pathname ? (exact ? pathname === path : pathname.startsWith(path)) : false;
     return `flex items-center gap-4 rounded-lg px-4 py-3 transition-all border ${isActive
         ? 'bg-secondary-container text-on-secondary-container border-primary/20 shadow-sm'
         : 'text-on-surface-variant border-transparent bg-surface-container-low/30 hover:text-on-surface hover:bg-surface-container-highest/50 hover:border-outline-variant/20'

@@ -4,7 +4,12 @@ import BriefHistoryClient from "./BriefHistoryClient";
 export const dynamic = 'force-dynamic';
 
 export default async function BriefHistoryPage() {
-  const briefs = await listBriefs();
+  let briefs = [];
+  try {
+    briefs = await listBriefs();
+  } catch (error) {
+    console.error("BriefHistory data fetch failed:", error);
+  }
 
   return <BriefHistoryClient initialBriefs={briefs} />;
 }

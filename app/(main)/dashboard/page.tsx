@@ -4,7 +4,13 @@ import Link from "next/link";
 export const dynamic = 'force-dynamic';
 
 export default async function Dashboard() {
-  const briefs = await listBriefs();
+  let briefs = [];
+  try {
+    briefs = await listBriefs();
+  } catch (error) {
+    console.error("Dashboard data fetch failed:", error);
+    // Return a simple error UI or just empty list for now to see if it renders
+  }
 
   const totalBriefs = briefs.length;
   const pendingBriefs = briefs.filter((b: any) => b.status === 'draft' || b.status === 'pending').length;
