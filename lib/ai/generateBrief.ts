@@ -1,7 +1,13 @@
 import { GoogleGenAI } from '@google/genai';
 import { Brief } from '../types';
 
-const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
+const getAI = () => {
+  const apiKey = process.env.GEMINI_API_KEY?.trim();
+  if (!apiKey) {
+    throw new Error('GEMINI_API_KEY is missing from environment variables');
+  }
+  return new GoogleGenAI({ apiKey });
+};
 
 export async function generateBriefFromInput(rawInput: string, files?: any[]): Promise<Partial<Brief>> {
   const systemInstruction = `
@@ -49,8 +55,8 @@ export async function generateBriefFromInput(rawInput: string, files?: any[]): P
       throw new Error('No input (text or files) provided');
     }
 
-    const response = await ai.models.generateContent({
-      model: 'gemini-2.5-flash',
+    const response = await getAI().models.generateContent({
+      model: 'gemini-1.5-flash',
       contents: parts,
       config: {
         systemInstruction,
@@ -118,8 +124,8 @@ export async function refineBrief(currentBrief: Partial<Brief>, clientFeedback: 
   `;
 
   try {
-    const response = await ai.models.generateContent({
-      model: 'gemini-2.5-flash',
+    const response = await getAI().models.generateContent({
+      model: 'gemini-1.5-flash',
       contents: `Revise the brief according to this feedback: ${clientFeedback}`,
       config: {
         systemInstruction,
