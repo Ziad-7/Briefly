@@ -85,7 +85,7 @@ export default function DashboardHeader() {
     fetchNotifications();
 
     const channel = supabase
-      .channel('schema-db-changes')
+      .channel(`dashboard-notifications-${Math.random().toString(36).substring(7)}`)
       .on(
         'postgres_changes',
         {
